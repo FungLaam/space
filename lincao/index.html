@@ -1,0 +1,54 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <script src="data.js"></script>
+    <script src="echarts.min.js"></script>
+    <script src="vue.min.js"></script>
+    <script src="theme.js"></script>
+    <title>林草机械装备业发展现状调查问卷结果展示</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- 标题 -->
+        <div>
+            <h1 id="title">林草机械装备业发展现状调查问卷结果展示</h1>
+        </div>
+
+        <!-- 内容部分 -->
+        <div id="main">
+
+            <!-- 大图展示部分 -->
+            <div id="overview">
+
+                <!-- tab切换标签 -->
+                <ul id="tabs">
+                    <li v-for="item,index in tags" :key="index" @click="tagChange(item)" :class="(item.id == activeTag) && 'activeStyle'">{{item.title}}</li>
+                </ul>
+
+                <!-- echarts板块 -->
+                <div id="contant"></div>
+
+            </div>
+
+            <!-- 右边的部分 -->
+            <div>
+                <!-- 统计数据板块 -->
+                <div id="statistical"></div>
+
+                <!-- 单个问题详细信息展示小图表 -->
+                <div id="detail"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./alpine.js" defer></script>
+  </head>
+  <body x-data="app" @wheel="wheelEvent($event,$refs.areas)">
+    <div class="header">
+      <div class="left">
+        <div class="top">
+          <span
+            class="date"
+            x-init="datetime(storetime)"
+            x-text="storetime.textTime"
+          ></span>
+          <span class="time" x-text="storetime.textDate"></span>
+        </div>
+        <div class="wc">欢迎您！黄晓明</div>
+      </div>
+      <div class="title">大数据汇聚治理服务平台</div>
+      <div class="right">
+        <div class="menu">
+          <a href="">
+            <img src="./imgs/images/a10.png" />
+          </a>
+          <a href="">
+            <img src="./imgs/images/a14.png" />
+          </a>
+          <img src="./imgs/images/a5.png" />
+          <img src="./imgs/images/a4.png" />
+        </div>
+        <div class="notice">未登录</div>
+      </div>
+    </div>
+    <div class="layout-effct">
+      <!-- 背景上的定位效果 -->
+      <template x-for="j in 6">
+        <img :src="`./imgs/images/a${j+15}.png`" />
+      </template>
+      <!-- 双侧箭头 -->
+      <img src="./imgs/images/a15.png" @click="scroll($refs.areas,'left')" />
+      <img src="./imgs/images/a11.png" @click="scroll($refs.areas,'right')" />
+    </div>
+    <main x-ref="areas">
+      <template x-for="v in arealist">
+        <div class="area" @mouseenter="slider($event,$refs.areas)">
+          <div class="area-main">
+            <!-- 小图标 -->
+            <div class="little-icon">
+              <template x-for="(t,f) in [1,4,5,3]">
+                <img :class="`a${f+1}`" :src="`./imgs/areas/a${t}.png`" />
+              </template>
+            </div>
+            <!-- 下落效果 -->
+            <div class="drops">
+              <template x-if="v.mod=='up'">
+                <template x-for="v in 10">
+                  <img
+                    src="./imgs/areas/a12.png"
+                    :style="`
+                      transform: scale(${RanNum(0.2, 1)});
+                      animation: upstar linear ${RanNum(2, 6)}s infinite;`
+                    "
+                  />
+                </template>
+              </template>
+              <template x-if="v.mod=='down'">
+                <template x-for="v in 10">
+                  <img
+                    src="./imgs/areas/a11.png"
+                    :style="`
+                      transform: scale(${RanNum(0.2, 1)});
+                      animation: dropstar linear ${RanNum(2, 6)}s infinite;`
+                    "
+                  />
+                </template>
+              </template>
+            </div>
+            <div class="area-title" x-text="v.label"></div>
+            <div class="main-effect">
+              <!-- 底部效果 -->
+              <div class="bottom">
+                <template x-for="l in 4">
+                  <img :class="'line-'+l" src="./imgs/areas/a9.png" />
+                </template>
+              </div>
+              <!-- 基础底座，光线，圆盘 -->
+              <div class="base">
+                <template x-for="r in [6,2,7]">
+                  <img :src="`./imgs/areas/a${r}.png`" />
+                </template>
+              </div>
+              <!-- 主图标 -->
+              <img class="main-icon" :src="v.icon" />
+            </div>
+          </div>
+          <!-- area菜单 -->
+          <div
+            class="area-menus"
+            :style="`background-image: url(./imgs/box/a${Math.ceil(v.children.length /3)}.png);grid-template-columns: repeat(${Math.ceil(v.children.length /3)}, 150rem);`"
+          >
+            <template x-for="(g,o) in v.children">
+              <a class="func" :href="g.link">
+                <img :src="`./imgs/funcs/a${o+1}.png`" />
+                <div class="label" x-text="g.label"></div>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+    </main>
+    <script src="./index.js"></script>
+  </body>
+</html>
